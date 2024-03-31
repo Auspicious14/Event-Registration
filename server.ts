@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
+const express = require("express");
 dotenv.config();
-import express from "express";
 const app = express();
 const mongoose = require("mongoose");
 import { appRoute } from "./index";
