@@ -11,7 +11,7 @@ const RegistrationSchema = new Schema(
       validate: isEmail,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
       required: true,
       unique: true,
     },
