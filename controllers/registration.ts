@@ -3,14 +3,24 @@ import { RegistrationModel } from "../models/registration";
 import { sendEmail } from "../middlewares/email";
 
 export const EventRegistration = async (req: Request, res: Response) => {
-  const { email } = req.body;
+  const { email, phoneNumber } = req.body;
   try {
     const existingEmail = await RegistrationModel.findOne({ email });
+    const existingPhoneNumber = await RegistrationModel.findOne({
+      phoneNumber,
+    });
 
     if (existingEmail)
-      return res.status(409).json({ error: "Email already exists" });
+      return res
+        .status(409)
+        .json({ error: "Email already used for registration" });
 
-    const newEmail = new RegistrationModel({ email });
+    if (existingPhoneNumber)
+      return res
+        .status(409)
+        .json({ error: "Phone Numeber already used for registration" });
+
+    const newEmail = new RegistrationModel({ email, phoneNumber });
     newEmail.save();
 
     const text = `<body style="font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f5f5f5;">

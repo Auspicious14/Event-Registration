@@ -10,6 +10,11 @@ const RegistrationSchema = new Schema(
       lowercase: true,
       validate: isEmail,
     },
+    phoneNumber: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
   },
   { timestamps: true }
 );
