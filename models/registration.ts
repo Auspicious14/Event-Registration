@@ -15,6 +15,9 @@ const RegistrationSchema = new Schema(
       required: true,
       unique: true,
     },
+    workshopEvent: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
