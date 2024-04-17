@@ -63,3 +63,38 @@ export const EventRegistration = async (req: Request, res: Response) => {
     res.json({ error });
   }
 };
+
+export const getAllAttendees = async (req: Request, res: Response) => {
+  try {
+    const attendees = await RegistrationModel.find();
+    return res
+      .status(200)
+      .json({ data: attendees, totalRecords: attendees?.length });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
+
+export const getAllAttendeesByEvent = async (req: Request, res: Response) => {
+  try {
+    const AIAttendees = await RegistrationModel.find({
+      workshopEvent: "AI Tools for Research",
+    });
+    const StatisticalAttendees = await RegistrationModel.find({
+      workshopEvent: "Statistical Tools for Research",
+    });
+
+    return res.status(200).json({
+      ai: {
+        AIAttendees,
+        totalRecords: AIAttendees?.length,
+      },
+      statistical: {
+        StatisticalAttendees,
+        totalRecords: StatisticalAttendees?.length,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
